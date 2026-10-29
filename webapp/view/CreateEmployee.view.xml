@@ -1,0 +1,79 @@
+<mvc:View controllerName="project1.controller.CreateEmployee"
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form" displayBlock="true">
+  <Page title="{i18n>createEmployeeTitle}" showNavButton="true" navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+    <content>
+      <f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+        labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+        emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+        columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+        <f:content>
+
+          <core:Title text="{i18n>secPersonal}"/>
+
+          <Label text="{i18n>lblEmployeeId}"/>
+          <Input value="{form>/emp/employeeId}" editable="false"/>
+
+          <Label text="{i18n>lblFirstName}" required="true"/>
+          <Input value="{form>/emp/firstName}" placeholder="{i18n>phFirstName}" maxLength="100"
+            valueState="{form>/state/firstName}" valueStateText="{form>/msg/firstName}"
+            change=".onFieldEdit($event, 'firstName')"/>
+
+          <Label text="{i18n>lblLastName}" required="true"/>
+          <Input value="{form>/emp/lastName}" placeholder="{i18n>phLastName}" maxLength="100"
+            valueState="{form>/state/lastName}" valueStateText="{form>/msg/lastName}"
+            change=".onFieldEdit($event, 'lastName')"/>
+
+          <Label text="{i18n>lblEmail}" required="true"/>
+          <Input value="{form>/emp/email}" type="Email" placeholder="{i18n>phEmail}" maxLength="150"
+            valueState="{form>/state/email}" valueStateText="{form>/msg/email}"
+            change=".onFieldEdit($event, 'email')"/>
+
+          <Label text="{i18n>lblPhone}" required="true"/>
+          <Input value="{form>/emp/phone}" type="Tel" placeholder="{i18n>phPhone}" maxLength="10"
+            valueState="{form>/state/phone}" valueStateText="{form>/msg/phone}"
+            change=".onFieldEdit($event, 'phone')"/>
+
+          <core:Title text="{i18n>secJob}"/>
+
+          <Label text="{i18n>lblDepartment}" required="true"/>
+          <ComboBox selectedKey="{form>/emp/department_ID}" placeholder="{i18n>phDepartment}"
+            items="{path: '/Departments', sorter: {path: 'name'}}"
+            valueState="{form>/state/department_ID}" valueStateText="{form>/msg/department_ID}"
+            selectionChange=".onFieldEdit($event, 'department_ID')">
+            <core:Item key="{ID}" text="{name}"/>
+          </ComboBox>
+
+          <Label text="{i18n>lblJobRole}" required="true"/>
+          <Input value="{form>/emp/designation}" placeholder="{i18n>phJobRole}" maxLength="100"
+            valueState="{form>/state/designation}" valueStateText="{form>/msg/designation}"
+            change=".onFieldEdit($event, 'designation')"/>
+
+          <Label text="{i18n>lblLocation}"/>
+          <Input value="{form>/emp/location}" placeholder="{i18n>phLocation}" maxLength="100"/>
+
+          <Label text="{i18n>lblJoiningDate}" required="true"/>
+          <DatePicker dateValue="{form>/emp/joiningDate}" displayFormat="dd MMM yyyy"
+            placeholder="{i18n>phJoiningDate}"
+            valueState="{form>/state/joiningDate}" valueStateText="{form>/msg/joiningDate}"
+            change=".onFieldEdit($event, 'joiningDate')"/>
+
+          <Label text="{i18n>lblStatus}"/>
+          <Select selectedKey="{form>/emp/status}">
+            <core:Item key="Active" text="{i18n>statusActive}"/>
+            <core:Item key="Inactive" text="{i18n>statusInactive}"/>
+          </Select>
+
+        </f:content>
+      </f:SimpleForm>
+    </content>
+    <footer>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Button text="{i18n>save}" type="Emphasized" press=".onSave"/>
+        <Button text="{i18n>reset}" press=".onReset"/>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>

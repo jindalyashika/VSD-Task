@@ -1,0 +1,44 @@
+<mvc:View controllerName="project1.controller.DisplayEmployees"
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" displayBlock="true">
+  <Page title="{i18n>displayEmployeesTitle}" showNavButton="true" navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+    <content>
+      <Table id="employeeTable"
+        items="{path: '/Employees', parameters: {expand: 'department'}, sorter: {path: 'employeeId'}}"
+        growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar"
+        noDataText="{i18n>noEmployees}">
+        <headerToolbar>
+          <OverflowToolbar>
+            <Title text="{i18n>employees}"/>
+            <ToolbarSpacer/>
+            <SearchField width="18rem" placeholder="{i18n>searchPlaceholder}" search=".onSearch" liveChange=".onSearch"/>
+          </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+          <Column width="6rem"><Text text="{i18n>colId}"/></Column>
+          <Column><Text text="{i18n>colName}"/></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colDepartment}"/></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colJobRole}"/></Column>
+          <Column minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>colLocation}"/></Column>
+          <Column minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>colJoined}"/></Column>
+          <Column><Text text="{i18n>colStatus}"/></Column>
+        </columns>
+        <items>
+          <ColumnListItem>
+            <cells>
+              <Text text="{employeeId}"/>
+              <ObjectIdentifier
+                title="{parts: [{path: 'firstName'}, {path: 'lastName'}], formatter: '.formatter.fullName'}"
+                text="{email}"/>
+              <Text text="{department/name}"/>
+              <Text text="{designation}"/>
+              <Text text="{location}"/>
+              <Text text="{path: 'joiningDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium', UTC: true}}"/>
+              <ObjectStatus text="{status}" state="{path: 'status', formatter: '.formatter.statusState'}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Page>
+</mvc:View>

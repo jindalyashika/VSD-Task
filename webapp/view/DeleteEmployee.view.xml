@@ -1,0 +1,43 @@
+<mvc:View controllerName="project1.controller.DeleteEmployee"
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" displayBlock="true">
+  <Page title="{i18n>deleteEmployeeTitle}" showNavButton="true" navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+    <content>
+      <MessageStrip text="{i18n>selectRowToDelete}" type="Warning" showIcon="true"
+        class="sapUiSmallMarginBottom"/>
+
+      <Table id="empTable" items="{path: '/employees', sorter: {path: 'EmployeeID'}}"
+        growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar"
+        noDataText="{i18n>noEmployees}">
+        <headerToolbar>
+          <OverflowToolbar>
+            <Title text="{i18n>employees}"/>
+            <ToolbarSpacer/>
+            <SearchField width="18rem" placeholder="{i18n>searchPlaceholder}"
+              liveChange=".onSearch" search=".onSearch"/>
+          </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+          <Column width="6rem"><Text text="{i18n>colId}"/></Column>
+          <Column><Text text="{i18n>colName}"/></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colDepartment}"/></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colJobRole}"/></Column>
+          <Column><Text text="{i18n>colStatus}"/></Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Active" press=".onRowPress">
+            <cells>
+              <Text text="{EmployeeID}"/>
+              <ObjectIdentifier
+                title="{parts: [{path: 'FirstName'}, {path: 'LastName'}], formatter: '.formatter.fullName'}"
+                text="{Email}"/>
+              <Text text="{parts: [{path: 'DepartmentID'}, {path: '/departments'}], formatter: '.formatter.deptName'}"/>
+              <Text text="{JobRole}"/>
+              <ObjectStatus text="{Status}" state="{path: 'Status', formatter: '.formatter.statusState'}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
+    </content>
+  </Page>
+</mvc:View>

@@ -1,0 +1,54 @@
+<mvc:View controllerName="project1.controller.Home"
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" displayBlock="true">
+  <Page id="homePage" title="{i18n>appTitle}">
+    <content>
+      <Title text="{i18n>homeWelcome}" level="H3"
+        class="sapUiMediumMarginBegin sapUiSmallMarginTop"/>
+
+      <FlexBox wrap="Wrap" justifyContent="Start" class="sapUiSmallMargin">
+
+        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
+          header="{i18n>createEmployeeTitle}" subheader="{i18n>createEmployeeSub}"
+          press=".onNavigate('CreateEmployee')">
+          <TileContent><ImageContent src="sap-icon://add-employee"/></TileContent>
+        </GenericTile>
+
+        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
+          header="{i18n>updateEmployeeTitle}" subheader="{i18n>updateEmployeeSub}"
+          press=".onNavigate('UpdateEmployee')">
+          <TileContent><ImageContent src="sap-icon://edit"/></TileContent>
+        </GenericTile>
+
+        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
+          header="{i18n>deleteEmployeeTitle}" subheader="{i18n>deleteEmployeeSub}"
+          press=".onNavigate('DeleteEmployee')">
+          <TileContent><ImageContent src="sap-icon://delete"/></TileContent>
+        </GenericTile>
+
+        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
+          header="{i18n>displayEmployeesTitle}" subheader="{i18n>displayEmployeesSub}"
+          press=".onNavigate('DisplayEmployees')">
+          <TileContent footer="{i18n>totalEmployees}">
+            <NumericContent value="{dashboard>/total}" icon="sap-icon://group" withMargin="false"/>
+          </TileContent>
+        </GenericTile>
+
+        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
+          header="{i18n>myInboxTitle}" subheader="{i18n>myInboxSub}"
+          press=".onNavigate('MyInbox')">
+          <TileContent footer="{i18n>pendingRequests}">
+            <NumericContent value="{dashboard>/pending}" icon="sap-icon://inbox"
+              valueColor="Critical" withMargin="false"/>
+          </TileContent>
+        </GenericTile>
+
+        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
+          header="{i18n>createLeaveTitle}" subheader="{i18n>createLeaveSub}"
+          press=".onNavigate('CreateLeaveRequest')">
+          <TileContent><ImageContent src="sap-icon://create-leave-request"/></TileContent>
+        </GenericTile>
+
+      </FlexBox>
+    </content>
+  </Page>
+</mvc:View>

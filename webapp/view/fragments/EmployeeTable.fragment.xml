@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Table id="empTable1" items="{path: '/employees', sorter: {path: 'EmployeeID'}}"
+    growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar"
+    noDataText="{i18n>noEmployees}">
+    <headerToolbar>
+      <OverflowToolbar>
+        <Title text="{i18n>employees}"/>
+        <ToolbarSpacer/>
+        <SearchField width="18rem" placeholder="{i18n>searchPlaceholder}"
+          liveChange=".onSearch" search=".onSearch"/>
+      </OverflowToolbar>
+    </headerToolbar>
+    <columns>
+      <Column width="6rem"><Text text="{i18n>colId}"/></Column>
+      <Column><Text text="{i18n>colName}"/></Column>
+      <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colDepartment}"/></Column>
+      <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colJobRole}"/></Column>
+      <Column minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>colJoined}"/></Column>
+      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="End"><Text text="{i18n>colSalary}"/></Column>
+      <Column><Text text="{i18n>colStatus}"/></Column>
+      <Column minScreenWidth="Desktop" demandPopin="true"><Text text="{i18n>colType}"/></Column>
+    </columns>
+    <items>
+      <ColumnListItem type="{ui>/rowType}" press=".onRowPress">
+        <cells>
+          <Text text="{EmployeeID}"/>
+          <ObjectIdentifier
+            title="{parts: [{path: 'FirstName'}, {path: 'LastName'}], formatter: '.formatter.fullName'}"
+            text="{Email}"/>
+          <Text text="{parts: [{path: 'DepartmentID'}, {path: '/departments'}], formatter: '.formatter.deptName'}"/>
+          <Text text="{JobRole}"/>
+          <Text text="{path: 'JoiningDate', type: 'sap.ui.model.type.Date', formatOptions: {source: {pattern: 'yyyy-MM-dd'}, style: 'medium'}}"/>
+          <ObjectNumber number="{path: 'Salary', formatter: '.formatter.salary'}" unit="INR"/>
+          <ObjectStatus text="{Status}" state="{path: 'Status', formatter: '.formatter.statusState'}"/>
+          <Text text="{path: 'IsPermanent', formatter: '.formatter.employmentType'}"/>
+        </cells>
+      </ColumnListItem>
+    </items>
+  </Table>
+</core:FragmentDefinition>

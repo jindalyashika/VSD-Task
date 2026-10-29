@@ -1,0 +1,11 @@
+<mvc:View controllerName="project1.controller.CreateLeaveRequest"
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" displayBlock="true">
+  <Page title="{i18n>createLeaveTitle}" showNavButton="true" navButtonPress=".onNavBack">
+    <content>
+      <IllustratedMessage enableVerticalResponsiveness="true"
+        illustrationType="sapIllus-PageNotFound"
+        title="{i18n>comingSoonTitle}"
+        description="{i18n>comingSoonDesc}"/>
+    </content>
+  </Page>
+</mvc:View>

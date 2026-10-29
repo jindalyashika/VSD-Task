@@ -1,0 +1,229 @@
+
+{
+  "employees": [
+    {
+      "EmployeeID": "EMP001",
+      "FirstName": "Aarav",
+      "LastName": "Shah",
+      "Email": "aarav.shah@example.com",
+      "Phone": "9876543210",
+      "DepartmentID": "IT",
+      "JobRole": "SAPUI5 Developer",
+      "JoiningDate": "2024-01-15",
+      "Salary": 45000,
+      "Status": "Active",
+      "IsPermanent": true
+    },
+    {
+      "EmployeeID": "EMP002",
+      "FirstName": "Diya",
+      "LastName": "Patel",
+      "Email": "diya.patel@example.com",
+      "Phone": "9876543211",
+      "DepartmentID": "HR",
+      "JobRole": "HR Executive",
+      "JoiningDate": "2023-08-10",
+      "Salary": 38000,
+      "Status": "On Leave",
+      "IsPermanent": true
+    },
+    {
+      "EmployeeID": "EMP003",
+      "FirstName": "Rohan",
+      "LastName": "Mehta",
+      "Email": "rohan.mehta@example.com",
+      "Phone": "9876543212",
+      "DepartmentID": "FIN",
+      "JobRole": "Finance Analyst",
+      "JoiningDate": "2025-02-01",
+      "Salary": 42000,
+      "Status": "Active",
+      "IsPermanent": false
+    },
+    {
+      "EmployeeID": "EMP004",
+      "FirstName": "Neha",
+      "LastName": "Desai",
+      "Email": "neha.desai@example.com",
+      "Phone": "9876543213",
+      "DepartmentID": "IT",
+      "JobRole": "SAP CAP Developer",
+      "JoiningDate": "2024-06-20",
+      "Salary": 52000,
+      "Status": "Active",
+      "IsPermanent": true
+    },
+    {
+      "EmployeeID": "EMP005",
+      "FirstName": "Karan",
+      "LastName": "Joshi",
+      "Email": "karan.joshi@example.com",
+      "Phone": "9876543214",
+      "DepartmentID": "SALES",
+      "JobRole": "Sales Executive",
+      "JoiningDate": "2022-11-05",
+      "Salary": 35000,
+      "Status": "Inactive",
+      "IsPermanent": false
+    },
+    {
+      "EmployeeID": "EMP006",
+      "FirstName": "Isha",
+      "LastName": "Trivedi",
+      "Email": "isha.trivedi@example.com",
+      "Phone": "9876543215",
+      "DepartmentID": "IT",
+      "JobRole": "Frontend Developer",
+      "JoiningDate": "2025-04-12",
+      "Salary": 48000,
+      "Status": "Active",
+      "IsPermanent": true
+    },
+    {
+      "EmployeeID": "EMP007",
+      "FirstName": "Dev",
+      "LastName": "Parikh",
+      "Email": "dev.parikh@example.com",
+      "Phone": "9876543216",
+      "DepartmentID": "FIN",
+      "JobRole": "Accountant",
+      "JoiningDate": "2023-03-18",
+      "Salary": 40000,
+      "Status": "Active",
+      "IsPermanent": true
+    },
+    {
+      "EmployeeID": "EMP008",
+      "FirstName": "Mira",
+      "LastName": "Joshi",
+      "Email": "mira.joshi@example.com",
+      "Phone": "9876543217",
+      "DepartmentID": "HR",
+      "JobRole": "HR Manager",
+      "JoiningDate": "2021-07-01",
+      "Salary": 60000,
+      "Status": "Active",
+      "IsPermanent": true
+    }
+  ],
+  "departments": [
+    {
+      "DepartmentID": "IT",
+      "DepartmentName": "Information Technology"
+    },
+    {
+      "DepartmentID": "HR",
+      "DepartmentName": "Human Resources"
+    },
+    {
+      "DepartmentID": "FIN",
+      "DepartmentName": "Finance"
+    },
+    {
+      "DepartmentID": "SALES",
+      "DepartmentName": "Sales"
+    }
+  ],
+  "leaveTypes": [
+    {
+      "LeaveTypeID": "ANNUAL",
+      "LeaveTypeName": "Annual Leave"
+    },
+    {
+      "LeaveTypeID": "SICK",
+      "LeaveTypeName": "Sick Leave"
+    },
+    {
+      "LeaveTypeID": "PERSONAL",
+      "LeaveTypeName": "Personal Leave"
+    },
+    {
+      "LeaveTypeID": "UNPAID",
+      "LeaveTypeName": "Unpaid Leave"
+    }
+  ],
+  "leaveRequests": [
+    {
+      "RequestID": "LR001",
+      "EmployeeID": "EMP001",
+      "LeaveType": "ANNUAL",
+      "FromDate": "2026-11-02",
+      "ToDate": "2026-11-04",
+      "NumberOfDays": 3,
+      "Reason": "Family function",
+      "SubmittedOn": "2026-10-20",
+      "Status": "Pending",
+      "ApproverID": "",
+      "DecisionDate": "",
+      "DecisionComments": ""
+    },
+    {
+      "RequestID": "LR002",
+      "EmployeeID": "EMP002",
+      "LeaveType": "SICK",
+      "FromDate": "2026-10-15",
+      "ToDate": "2026-10-16",
+      "NumberOfDays": 2,
+      "Reason": "Medical rest",
+      "SubmittedOn": "2026-10-14",
+      "Status": "Approved",
+      "ApproverID": "MANAGER001",
+      "DecisionDate": "2026-10-14",
+      "DecisionComments": "Approved"
+    },
+    {
+      "RequestID": "LR003",
+      "EmployeeID": "EMP003",
+      "LeaveType": "PERSONAL",
+      "FromDate": "2026-11-10",
+      "ToDate": "2026-11-10",
+      "NumberOfDays": 1,
+      "Reason": "Personal work",
+      "SubmittedOn": "2026-10-22",
+      "Status": "Pending",
+      "ApproverID": "",
+      "DecisionDate": "",
+      "DecisionComments": ""
+    },
+    {
+      "RequestID": "LR004",
+      "EmployeeID": "EMP004",
+      "LeaveType": "UNPAID",
+      "FromDate": "2026-09-01",
+      "ToDate": "2026-09-02",
+      "NumberOfDays": 2,
+      "Reason": "Personal travel",
+      "SubmittedOn": "2026-08-25",
+      "Status": "Rejected",
+      "ApproverID": "MANAGER001",
+      "DecisionDate": "2026-08-26",
+      "DecisionComments": "Please select alternative dates"
+    },
+    {
+      "RequestID": "LR005",
+      "EmployeeID": "EMP006",
+      "LeaveType": "ANNUAL",
+      "FromDate": "2026-11-16",
+      "ToDate": "2026-11-18",
+      "NumberOfDays": 3,
+      "Reason": "Planned vacation",
+      "SubmittedOn": "2026-10-24",
+      "Status": "Pending",
+      "ApproverID": "",
+      "DecisionDate": "",
+      "DecisionComments": ""
+    }
+  ],
+  "currentUser": {
+    "UserID": "MANAGER001",
+    "UserName": "Demo Manager",
+    "Role": "Manager"
+  },
+  "dashboard": {
+    "TotalEmployees": 8,
+    "ActiveEmployees": 6,
+    "PendingLeaveRequests": 3,
+    "ApprovedLeaveRequests": 1,
+    "RejectedLeaveRequests": 1
+  }
+}

@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog id="editDialog" title="{i18n>updateEmployeeTitle}" contentWidth="52rem"
+    stretch="{device>/system/phone}" draggable="true" resizable="true">
+    <beginButton>
+      <Button text="{i18n>save}" type="Emphasized" press=".onSaveEdit"/>
+    </beginButton>
+    <endButton>
+      <Button text="{i18n>cancel}" press=".onCancelEdit"/>
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

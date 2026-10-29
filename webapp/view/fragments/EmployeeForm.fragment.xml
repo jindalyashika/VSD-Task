@@ -1,0 +1,72 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+  <f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+    labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+    columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+    <f:content>
+
+      <core:Title text="{i18n>secPersonal}"/>
+
+      <Label text="{i18n>lblEmployeeId}"/>
+      <Input value="{form>/emp/EmployeeID}" editable="false"/>
+
+      <Label text="{i18n>lblFirstName}" required="true"/>
+      <Input value="{form>/emp/FirstName}" placeholder="{i18n>phFirstName}" maxLength="30"
+        valueState="{form>/state/FirstName}" valueStateText="{form>/msg/FirstName}"
+        change=".onFieldChange($event, 'FirstName')"/>
+
+      <Label text="{i18n>lblLastName}" required="true"/>
+      <Input value="{form>/emp/LastName}" placeholder="{i18n>phLastName}" maxLength="30"
+        valueState="{form>/state/LastName}" valueStateText="{form>/msg/LastName}"
+        change=".onFieldChange($event, 'LastName')"/>
+
+      <Label text="{i18n>lblEmail}" required="true"/>
+      <Input value="{form>/emp/Email}" type="Email" placeholder="{i18n>phEmail}" maxLength="60"
+        valueState="{form>/state/Email}" valueStateText="{form>/msg/Email}"
+        change=".onFieldChange($event, 'Email')"/>
+
+      <Label text="{i18n>lblPhone}" required="true"/>
+      <Input value="{form>/emp/Phone}" type="Tel" placeholder="{i18n>phPhone}" maxLength="10"
+        valueState="{form>/state/Phone}" valueStateText="{form>/msg/Phone}"
+        change=".onFieldChange($event, 'Phone')"/>
+
+      <core:Title text="{i18n>secJob}"/>
+
+      <Label text="{i18n>lblDepartment}" required="true"/>
+      <ComboBox selectedKey="{form>/emp/DepartmentID}" placeholder="{i18n>phDepartment}"
+        items="{/departments}"
+        valueState="{form>/state/DepartmentID}" valueStateText="{form>/msg/DepartmentID}"
+        selectionChange=".onFieldChange($event, 'DepartmentID')"
+        change=".onFieldChange($event, 'DepartmentID')">
+        <core:Item key="{DepartmentID}" text="{DepartmentName}"/>
+      </ComboBox>
+
+      <Label text="{i18n>lblJobRole}" required="true"/>
+      <Input value="{form>/emp/JobRole}" placeholder="{i18n>phJobRole}" maxLength="50"
+        valueState="{form>/state/JobRole}" valueStateText="{form>/msg/JobRole}"
+        change=".onFieldChange($event, 'JobRole')"/>
+
+      <Label text="{i18n>lblJoiningDate}" required="true"/>
+      <DatePicker value="{form>/emp/JoiningDate}" valueFormat="yyyy-MM-dd" displayFormat="dd MMM yyyy"
+        placeholder="{i18n>phJoiningDate}"
+        valueState="{form>/state/JoiningDate}" valueStateText="{form>/msg/JoiningDate}"
+        change=".onFieldChange($event, 'JoiningDate')"/>
+
+      <Label text="{i18n>lblSalary}" required="true"/>
+      <Input value="{form>/emp/Salary}" type="Number" placeholder="{i18n>phSalary}" description="INR"
+        valueState="{form>/state/Salary}" valueStateText="{form>/msg/Salary}"
+        change=".onFieldChange($event, 'Salary')"/>
+
+      <Label text="{i18n>lblStatus}"/>
+      <Select selectedKey="{form>/emp/Status}">
+        <core:Item key="Active" text="{i18n>statusActive}"/>
+        <core:Item key="Inactive" text="{i18n>statusInactive}"/>
+        <core:Item key="On Leave" text="{i18n>statusOnLeave}"/>
+      </Select>
+
+      <Label text="{i18n>lblEmployment}"/>
+      <CheckBox selected="{form>/emp/IsPermanent}" text="{i18n>permanentText}"/>
+
+    </f:content>
+  </f:SimpleForm>
+</core:FragmentDefinition>

@@ -1,0 +1,12 @@
+<mvc:View controllerName="project1.controller.UpdateEmployee"
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" displayBlock="true">
+  <Page title="{i18n>updateEmployeeTitle}" showNavButton="true" navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+    <content>
+      <MessageStrip text="{i18n>selectRowToEdit}" type="Information" showIcon="true"
+        class="sapUiSmallMarginBottom"/>
+        
+      <core:Fragment fragmentName="project1.view.fragments.EmployeeTable" type="XML"/>
+    </content>
+  </Page>
+</mvc:View>

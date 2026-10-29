@@ -1,0 +1,201 @@
+{
+  "_version": "1.89.0",
+  "sap.app": {
+    "id": "project1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.33.0",
+      "toolsId": "fbf92924-91b0-4618-8fd9-34028f15fbb8"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v2/zEmployeeManagement",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Employees-Display": {
+          "semanticObject": "Employees",
+          "action": "Display",
+          "title": "{{Employees-Display.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.153.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {},
+        "sap.ui.export": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project1.i18n.i18n",
+          "supportedLocales": [
+            ""
+          ],
+          "fallbackLocale": ""
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "OneWay",
+          "defaultOperationMode": "Server",
+          "defaultCountMode": "Inline"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "project1.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "transition": "slide",
+        "async": true,
+        "bypassed": {
+          "target": "Home"
+        }
+      },
+      "routes": [
+        {
+          "name": "Home",
+          "pattern": "",
+          "target": "Home"
+        },
+        {
+          "name": "CreateEmployee",
+          "pattern": "create",
+          "target": "CreateEmployee"
+        },
+        {
+          "name": "UpdateEmployee",
+          "pattern": "update",
+          "target": "UpdateEmployee"
+        },
+        {
+          "name": "DeleteEmployee",
+          "pattern": "delete",
+          "target": "DeleteEmployee"
+        },
+        {
+          "name": "DisplayEmployees",
+          "pattern": "employees",
+          "target": "DisplayEmployees"
+        },
+        {
+          "name": "MyInbox",
+          "pattern": "inbox",
+          "target": "MyInbox"
+        },
+        {
+          "name": "CreateLeaveRequest",
+          "pattern": "leave/create",
+          "target": "CreateLeaveRequest"
+        }
+      ],
+      "targets": {
+        "Home": {
+          "id": "Home",
+          "name": "Home",
+          "viewLevel": 1
+        },
+        "CreateEmployee": {
+          "id": "CreateEmployee",
+          "name": "CreateEmployee",
+          "viewLevel": 2
+        },
+        "UpdateEmployee": {
+          "id": "UpdateEmployee",
+          "name": "UpdateEmployee",
+          "viewLevel": 2
+        },
+        "DeleteEmployee": {
+          "id": "DeleteEmployee",
+          "name": "DeleteEmployee",
+          "viewLevel": 2
+        },
+        "DisplayEmployees": {
+          "id": "DisplayEmployees",
+          "name": "DisplayEmployees",
+          "viewLevel": 2
+        },
+        "MyInbox": {
+          "id": "MyInbox",
+          "name": "MyInbox",
+          "viewLevel": 2
+        },
+        "CreateLeaveRequest": {
+          "id": "CreateLeaveRequest",
+          "name": "CreateLeaveRequest",
+          "viewLevel": 2
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "project1.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "project1"
+  }
+}
