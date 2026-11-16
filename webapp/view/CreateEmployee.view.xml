@@ -31,9 +31,25 @@
             change=".onFieldEdit($event, 'email')"/>
 
           <Label text="{i18n>lblPhone}" required="true"/>
-          <Input value="{form>/emp/phone}" type="Tel" placeholder="{i18n>phPhone}" maxLength="10"
+          <Input value="{form>/emp/phone}" type="Tel" placeholder="{i18n>phPhone}" maxLength="15"
             valueState="{form>/state/phone}" valueStateText="{form>/msg/phone}"
             change=".onFieldEdit($event, 'phone')"/>
+
+          <Label text="{i18n>lblDob}" required="true"/>
+          <DatePicker dateValue="{form>/emp/dob}" displayFormat="dd MMM yyyy"
+            placeholder="{i18n>phDob}"
+            valueState="{form>/state/dob}" valueStateText="{form>/msg/dob}"
+            change=".onFieldEdit($event, 'dob')"/>
+
+          <Label text="{i18n>lblCurrentAddress}" required="true"/>
+          <TextArea value="{form>/emp/currentAddress}" rows="2" maxLength="500" showExceededText="true"
+            valueState="{form>/state/currentAddress}" valueStateText="{form>/msg/currentAddress}"
+            change=".onFieldEdit($event, 'currentAddress')"/>
+
+          <Label text="{i18n>lblPermanentAddress}" required="true"/>
+          <TextArea value="{form>/emp/permanentAddress}" rows="2" maxLength="500" showExceededText="true"
+            valueState="{form>/state/permanentAddress}" valueStateText="{form>/msg/permanentAddress}"
+            change=".onFieldEdit($event, 'permanentAddress')"/>
 
           <core:Title text="{i18n>secJob}"/>
 
@@ -46,9 +62,12 @@
           </ComboBox>
 
           <Label text="{i18n>lblJobRole}" required="true"/>
-          <Input value="{form>/emp/designation}" placeholder="{i18n>phJobRole}" maxLength="100"
-            valueState="{form>/state/designation}" valueStateText="{form>/msg/designation}"
-            change=".onFieldEdit($event, 'designation')"/>
+          <ComboBox selectedKey="{form>/emp/designation_ID}" placeholder="{i18n>phJobRole}"
+            items="{path: '/Designations', sorter: {path: 'description'}}"
+            valueState="{form>/state/designation_ID}" valueStateText="{form>/msg/designation_ID}"
+            selectionChange=".onFieldEdit($event, 'designation_ID')">
+            <core:ListItem key="{ID}" text="{description}" additionalText="{code}"/>
+          </ComboBox>
 
           <Label text="{i18n>lblLocation}"/>
           <Input value="{form>/emp/location}" placeholder="{i18n>phLocation}" maxLength="100"/>

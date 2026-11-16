@@ -1,78 +1,298 @@
-<mvc:View controllerName="project1.controller.MyInbox"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-  displayBlock="true">
-	<SplitApp
-		id="SplitAppDemo"
-		initialDetail="detail"
-		initialMaster="master">
-		<detailPages>
-			<Page
-				id="detail"
-				title="{i18n>myInboxTitle}"
-				backgroundDesign= "Solid"
-        showNavButton="true" navButtonPress=".onNavBack">
-				<Label text="Detail page 1" />
-			</Page>
-			<Page
-				id="detailDetail"
-				title="Detail Detail"
-				backgroundDesign= "Solid"
-				showNavButton="true"
-				navButtonPress=".onPressDetailBack">
-				<VBox class="sapUiSmallMargin">
-					<Label text="This is Detail Page2" />
-					<Text text="Here you could change the Split Application mode. After the mode change, resize the browser window to see the difference in the master form behaviour." />
-					<RadioButtonGroup columns="1" width="500px" class="sapUiMediumMarginBottom" select=".onPressModeBtn">
-						<RadioButton id="RB1-1" text="show/hide" selected="true" custom:splitAppMode="ShowHideMode" />
-						<RadioButton id="RB1-2" text="stretch/compress" custom:splitAppMode="StretchCompressMode" />
-						<RadioButton id="RB1-3" text="hide" custom:splitAppMode="HideMode" />
-						<RadioButton id="RB1-4" text="popover" custom:splitAppMode="PopoverMode" />
-					</RadioButtonGroup>
-				</VBox>
-			</Page>
-			<Page
-				id="detail2"
-				title="Detail 3 Page"
-				backgroundDesign= "Solid"
-				showNavButton="true"
-				navButtonPress=".onPressDetailBack">
-				<Label text="This is Detail Page3" />
-				<Input/>
-				<Label text="Label 2" />
-				<Input/>
-				<Label text="Label 3" />
-				<Input/>
-				<Label text="Label 4" />
-				<Input/>
-				<Label text="Label 5" />
-				<Input/>
-			</Page>
-		</detailPages>
-		<masterPages>
-			<Page
-				id="master"
-				title="All Task"
-				backgroundDesign= "List">
-				<List>
-					<StandardListItem title="To Master2" type="Navigation" press=".onPressGoToMaster" />
-				</List>
-			</Page>
-			<Page
-				id="master2"
-				title="Master 2"
-				backgroundDesign="List"
-				showNavButton="true"
-				navButtonPress=".onPressMasterBack">
-				<List itemPress=".onListItemPress">
-					<items>
-						<StandardListItem title="To Detail 1" type="Active" custom:to="detail" />
-						<StandardListItem title="To Detail 2" type="Active" custom:to="detailDetail" />
-						<StandardListItem title="To Detail 3" type="Active" custom:to="detail2" />
-					</items>
-				</List>
-			</Page>
-		</masterPages>
-	</SplitApp>
+<mvc:View
+    controllerName="project1.controller.MyInbox"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    height="100%">
+
+    <f:FlexibleColumnLayout
+        id="fcl"
+        layout="OneColumn"
+        backgroundDesign="Solid">
+
+        <!-- ============ COLUMN 1: EMPLOYEES ============ -->
+        <f:beginColumnPages>
+            <Page
+                id="employeesPage"
+                title="Employees"
+                showNavButton="true"
+                navButtonPress=".onNavBack"
+                backgroundDesign="List">
+
+                <headerContent>
+                    <Button
+                        icon="sap-icon://refresh"
+                        tooltip="Refresh"
+                        type="Transparent"
+                        press=".onRefreshEmployees" />
+                </headerContent>
+
+                <subHeader>
+                    <Toolbar>
+                        <SearchField
+                            placeholder="Search employees"
+                            width="100%"
+                            liveChange=".onEmployeeSearch"
+                            search=".onEmployeeSearch" />
+                    </Toolbar>
+                </subHeader>
+
+                <content>
+                    <List
+                        id="employeeList"
+                        items="{inbox>/employees}"
+                        mode="SingleSelectMaster"
+                        selectionChange=".onEmployeeSelect"
+                        updateFinished=".onEmployeeListUpdateFinished"
+                        growing="true"
+                        growingThreshold="50"
+                        sticky="HeaderToolbar"
+                        busy="{inbox>/busy/employees}"
+                        busyIndicatorDelay="0"
+                        noDataText="No employees found">
+
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <Title
+                                    text="{= ${inbox>/employeeCount} + ' Employees' }"
+                                    level="H5" />
+                            </OverflowToolbar>
+                        </headerToolbar>
+
+                        <CustomListItem>
+                            <HBox
+                                alignItems="Center"
+                                class="sapUiSmallMargin">
+                                <Avatar
+                                    initials="{inbox>initials}"
+                                    displaySize="S"
+                                    backgroundColor="Accent6"
+                                    class="sapUiSmallMarginEnd" />
+                                <VBox>
+                                    <Title
+                                        text="{inbox>employeeName}"
+                                        titleStyle="H6"
+                                        wrapping="true" />
+                                    <Text
+                                        text="{inbox>subtitle}"
+                                        visible="{= !!${inbox>subtitle} }"
+                                        class="sapUiTinyMarginTop" />
+                                </VBox>
+                            </HBox>
+                        </CustomListItem>
+                    </List>
+                </content>
+            </Page>
+        </f:beginColumnPages>
+
+        <!-- ============ COLUMN 2: LEAVE REQUESTS ============ -->
+        <f:midColumnPages>
+            <Page
+                id="leavesPage"
+                title="Leave Requests"
+                backgroundDesign="List">
+
+                <headerContent>
+                    <Button
+                        icon="sap-icon://refresh"
+                        tooltip="Refresh"
+                        type="Transparent"
+                        press=".onRefreshLeaves" />
+                    <Button
+                        icon="sap-icon://decline"
+                        tooltip="Close"
+                        type="Transparent"
+                        press=".onCloseLeaves" />
+                </headerContent>
+
+                <subHeader>
+                    <Toolbar>
+                        <SearchField
+                            id="leaveSearch"
+                            placeholder="Search by leave type or reason"
+                            width="100%"
+                            liveChange=".onLeaveSearch"
+                            search=".onLeaveSearch" />
+                    </Toolbar>
+                </subHeader>
+
+                <content>
+                    <List
+                        id="leaveList"
+                        items="{inbox>/leaves}"
+                        mode="SingleSelectMaster"
+                        selectionChange=".onLeaveSelect"
+                        updateFinished=".onLeaveListUpdateFinished"
+                        growing="true"
+                        growingThreshold="25"
+                        sticky="HeaderToolbar"
+                        busy="{inbox>/busy/leaves}"
+                        busyIndicatorDelay="0"
+                        noDataText="No leave requests found">
+
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <Title
+                                    text="{= (${inbox>/selectedEmployee/employeeName} || 'Employee') + ' (' + ${inbox>/counts/all} + ')' }"
+                                    level="H5" />
+                                <ToolbarSpacer />
+                                <Select
+                                    id="statusFilter"
+                                    selectedKey="All"
+                                    autoAdjustWidth="true"
+                                    change=".onStatusFilter">
+                                    <core:Item key="All" text="{= 'All (' + ${inbox>/counts/all} + ')' }" />
+                                    <core:Item key="Pending" text="{= 'Pending (' + ${inbox>/counts/pending} + ')' }" />
+                                    <core:Item key="Approved" text="{= 'Approved (' + ${inbox>/counts/approved} + ')' }" />
+                                    <core:Item key="Rejected" text="{= 'Rejected (' + ${inbox>/counts/rejected} + ')' }" />
+                                </Select>
+                            </OverflowToolbar>
+                        </headerToolbar>
+
+                        <CustomListItem highlight="{inbox>statusState}">
+                            <VBox class="sapUiSmallMargin">
+                                <HBox
+                                    justifyContent="SpaceBetween"
+                                    alignItems="Center">
+                                    <Title
+                                        text="{inbox>leaveType}"
+                                        titleStyle="H6"
+                                        wrapping="true" />
+                                    <ObjectStatus
+                                        text="{inbox>status}"
+                                        state="{inbox>statusState}"
+                                        icon="{inbox>statusIcon}"
+                                        inverted="true" />
+                                </HBox>
+                                <ObjectAttribute
+                                    text="{inbox>startDateFormatted} to {inbox>endDateFormatted} ({inbox>durationText})"
+                                    class="sapUiTinyMarginTop" />
+                            </VBox>
+                        </CustomListItem>
+                    </List>
+                </content>
+            </Page>
+        </f:midColumnPages>
+
+        <!-- ============ COLUMN 3: LEAVE DETAILS ============ -->
+        <f:endColumnPages>
+            <Page
+                id="detailPage"
+                title="Leave Request"
+                enableScrolling="true"
+                busy="{inbox>/busy/leaves}"
+                busyIndicatorDelay="0">
+
+                <headerContent>
+                    <Button
+                        icon="sap-icon://decline"
+                        tooltip="Close"
+                        type="Transparent"
+                        press=".onCloseDetail" />
+                </headerContent>
+
+                <content>
+                    <VBox visible="{= !!${inbox>/selectedLeave} }">
+
+                        <ObjectHeader
+                            title="{inbox>/selectedLeave/employeeName}"
+                            intro="{inbox>/selectedLeave/leaveType}"
+                            responsive="true"
+                            backgroundDesign="Translucent">
+                            <statuses>
+                                <ObjectStatus
+                                    text="{inbox>/selectedLeave/status}"
+                                    state="{inbox>/selectedLeave/statusState}"
+                                    icon="{inbox>/selectedLeave/statusIcon}"
+                                    inverted="true" />
+                            </statuses>
+                            <attributes>
+                                <ObjectAttribute
+                                    title="Duration"
+                                    text="{inbox>/selectedLeave/durationText}" />
+                                <ObjectAttribute
+                                    title="Period"
+                                    text="{inbox>/selectedLeave/startDateFormatted} to {inbox>/selectedLeave/endDateFormatted}" />
+                            </attributes>
+                        </ObjectHeader>
+
+                        <Panel
+                            headerText="Leave Details"
+                            width="auto"
+                            class="sapUiResponsiveMargin">
+                            <form:SimpleForm
+                                editable="false"
+                                layout="ColumnLayout"
+                                columnsM="1"
+                                columnsL="1"
+                                columnsXL="2">
+                                <Label text="Leave Type" />
+                                <Text text="{inbox>/selectedLeave/leaveType}" />
+
+                                <Label text="Status" />
+                                <ObjectStatus
+                                    text="{inbox>/selectedLeave/status}"
+                                    state="{inbox>/selectedLeave/statusState}"
+                                    icon="{inbox>/selectedLeave/statusIcon}" />
+
+                                <Label text="Start Date" />
+                                <Text text="{inbox>/selectedLeave/startDateFormatted}" />
+
+                                <Label text="End Date" />
+                                <Text text="{inbox>/selectedLeave/endDateFormatted}" />
+
+                                <Label text="Duration" />
+                                <Text text="{inbox>/selectedLeave/durationText}" />
+
+                                <Label text="Reason" />
+                                <Text text="{inbox>/selectedLeave/reasonText}" />
+                            </form:SimpleForm>
+                        </Panel>
+
+                        <Panel
+                            headerText="Approval"
+                            width="auto"
+                            class="sapUiResponsiveMargin">
+                            <form:SimpleForm
+                                editable="false"
+                                layout="ColumnLayout"
+                                columnsM="1"
+                                columnsL="1"
+                                columnsXL="2">
+                                <Label text="Approver" />
+                                <Text text="{inbox>/selectedLeave/approverText}" />
+
+                                <Label text="Comments" />
+                                <Text text="{inbox>/selectedLeave/commentsText}" />
+                            </form:SimpleForm>
+                        </Panel>
+
+                        <Panel
+                            headerText="Reference"
+                            width="auto"
+                            expandable="true"
+                            expanded="false"
+                            class="sapUiResponsiveMargin">
+                            <form:SimpleForm
+                                editable="false"
+                                layout="ColumnLayout"
+                                columnsM="1"
+                                columnsL="1"
+                                columnsXL="1">
+                                <Label text="Employee ID" />
+                                <Text text="{inbox>/selectedLeave/employee_ID}" />
+
+                                <Label text="Leave Request ID" />
+                                <Text text="{inbox>/selectedLeave/ID}" />
+                            </form:SimpleForm>
+                        </Panel>
+                    </VBox>
+                </content>
+            </Page>
+        </f:endColumnPages>
+
+    </f:FlexibleColumnLayout>
 </mvc:View>

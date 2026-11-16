@@ -1,12 +1,35 @@
 <mvc:View controllerName="project1.controller.UpdateEmployee"
-  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core" displayBlock="true">
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" displayBlock="true">
   <Page title="{i18n>updateEmployeeTitle}" showNavButton="true" navButtonPress=".onNavBack"
     class="sapUiResponsiveContentPadding">
     <content>
       <MessageStrip text="{i18n>selectRowToEdit}" type="Information" showIcon="true"
         class="sapUiSmallMarginBottom"/>
-        
-      <core:Fragment fragmentName="project1.view.fragments.EmployeeTable" type="XML"/>
+
+      <Table id="empTable9"
+        items="{path: '/Employees', parameters: {expand: 'department,designation'}, sorter: {path: 'employeeId'}}"
+        growing="true" growingThreshold="20" noDataText="{i18n>noEmployees}">
+        <columns>
+          <Column width="6rem"><Text text="{i18n>colId}"/></Column>
+          <Column><Text text="{i18n>colName}"/></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colDepartment}"/></Column>
+          <Column minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>colJobRole}"/></Column>
+          <Column><Text text="{i18n>colStatus}"/></Column>
+        </columns>
+        <items>
+          <ColumnListItem type="Active" press=".onRowPress">
+            <cells>
+              <Text text="{employeeId}"/>
+              <ObjectIdentifier
+                title="{parts: [{path: 'firstName'}, {path: 'lastName'}], formatter: '.formatter.fullName'}"
+                text="{email}"/>
+              <Text text="{department/name}"/>
+              <Text text="{designation/description}"/>
+              <ObjectStatus text="{status}" state="{path: 'status', formatter: '.formatter.statusState'}"/>
+            </cells>
+          </ColumnListItem>
+        </items>
+      </Table>
     </content>
   </Page>
 </mvc:View>

@@ -9,15 +9,15 @@
         columnsXL="1" columnsL="1" columnsM="1">
         <f:content>
           <Label text="{i18n>lblEmployeeId}"/>
-          <Text text="{form>/emp/EmployeeID}"/>
+          <Text text="{form>/emp/employeeId}"/>
           <Label text="{i18n>colName}"/>
-          <Text text="{parts: [{path: 'form>/emp/FirstName'}, {path: 'form>/emp/LastName'}], formatter: '.formatter.fullName'}"/>
+          <Text text="{form>/emp/name}"/>
           <Label text="{i18n>lblEmail}"/>
-          <Text text="{form>/emp/Email}"/>
+          <Text text="{form>/emp/email}"/>
           <Label text="{i18n>lblDepartment}"/>
-          <Text text="{parts: [{path: 'form>/emp/DepartmentID'}, {path: '/departments'}], formatter: '.formatter.deptName'}"/>
+          <Text text="{form>/emp/department}"/>
           <Label text="{i18n>lblJobRole}"/>
-          <Text text="{form>/emp/JobRole}"/>
+          <Text text="{form>/emp/designation}"/>
         </f:content>
       </f:SimpleForm>
     </content>

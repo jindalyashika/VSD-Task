@@ -1,54 +1,155 @@
-<mvc:View controllerName="project1.controller.Home"
-  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" displayBlock="true">
-  <Page id="homePage" title="{i18n>appTitle}">
-    <content>
-      <Title text="{i18n>homeWelcome}" level="H3"
-        class="sapUiMediumMarginBegin sapUiSmallMarginTop"/>
+<mvc:View
+    controllerName="project1.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    displayBlock="true">
 
-      <FlexBox wrap="Wrap" justifyContent="Start" class="sapUiSmallMargin">
+    <Page id="homePage" title="{i18n>appTitle}">
+        <content>
 
-        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
-          header="{i18n>createEmployeeTitle}" subheader="{i18n>createEmployeeSub}"
-          press=".onNavigate('CreateEmployee')">
-          <TileContent><ImageContent src="sap-icon://add-employee"/></TileContent>
-        </GenericTile>
+            <VBox class="sapUiMediumMargin">
 
-        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
-          header="{i18n>updateEmployeeTitle}" subheader="{i18n>updateEmployeeSub}"
-          press=".onNavigate('UpdateEmployee')">
-          <TileContent><ImageContent src="sap-icon://edit"/></TileContent>
-        </GenericTile>
+                <!-- Employee Management -->
+                <Title
+                    text="{i18n>homeWelcome}"
+                    level="H3"
+                    class="sapUiSmallMarginBottom" />
 
-        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
-          header="{i18n>deleteEmployeeTitle}" subheader="{i18n>deleteEmployeeSub}"
-          press=".onNavigate('DeleteEmployee')">
-          <TileContent><ImageContent src="sap-icon://delete"/></TileContent>
-        </GenericTile>
+                <f:GridContainer>
+                    <f:layout>
+                        <f:GridContainerSettings
+                            columns="auto-fill"
+                            columnSize="12rem"
+                            rowSize="12rem"
+                            gap="1rem" />
+                    </f:layout>
 
-        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
-          header="{i18n>displayEmployeesTitle}" subheader="{i18n>displayEmployeesSub}"
-          press=".onNavigate('DisplayEmployees')">
-          <TileContent footer="{i18n>totalEmployees}">
-            <NumericContent value="{dashboard>/total}" icon="sap-icon://group" withMargin="false"/>
-          </TileContent>
-        </GenericTile>
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="{i18n>createEmployeeTitle}"
+                        subheader="{i18n>createEmployeeSub}"
+                        press=".onNavigate('CreateEmployee')">
+                        <TileContent>
+                            <ImageContent src="sap-icon://add-employee" />
+                        </TileContent>
+                    </GenericTile>
 
-        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
-          header="{i18n>myInboxTitle}" subheader="{i18n>myInboxSub}"
-          press=".onNavigate('MyInbox')">
-          <TileContent footer="{i18n>pendingRequests}">
-            <NumericContent value="{dashboard>/pending}" icon="sap-icon://inbox"
-              valueColor="Critical" withMargin="false"/>
-          </TileContent>
-        </GenericTile>
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="{i18n>updateEmployeeTitle}"
+                        subheader="{i18n>updateEmployeeSub}"
+                        press=".onNavigate('UpdateEmployee')">
+                        <TileContent>
+                            <ImageContent src="sap-icon://edit" />
+                        </TileContent>
+                    </GenericTile>
 
-        <GenericTile class="sapUiSmallMargin" frameType="OneByOne"
-          header="{i18n>createLeaveTitle}" subheader="{i18n>createLeaveSub}"
-          press=".onNavigate('CreateLeaveRequest')">
-          <TileContent><ImageContent src="sap-icon://create-leave-request"/></TileContent>
-        </GenericTile>
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="{i18n>deleteEmployeeTitle}"
+                        subheader="{i18n>deleteEmployeeSub}"
+                        press=".onNavigate('DeleteEmployee')">
+                        <TileContent>
+                            <ImageContent src="sap-icon://delete" />
+                        </TileContent>
+                    </GenericTile>
 
-      </FlexBox>
-    </content>
-  </Page>
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="{i18n>displayEmployeesTitle}"
+                        subheader="{i18n>displayEmployeesSub}"
+                        press=".onNavigate('DisplayEmployees')">
+                        <TileContent footer="{i18n>totalEmployees}">
+                            <NumericContent
+                                value="{dashboard>/total}"
+                                icon="sap-icon://group"
+                                withMargin="false" />
+                        </TileContent>
+                    </GenericTile>
+
+                </f:GridContainer>
+
+                <!-- Leave Management -->
+                <Title
+                    text="{i18n>leaveManagementTitle}"
+                    level="H4"
+                    class="sapUiMediumMarginTop sapUiSmallMarginBottom" />
+
+                <f:GridContainer>
+                    <f:layout>
+                        <f:GridContainerSettings
+                            columns="auto-fill"
+                            columnSize="12rem"
+                            rowSize="12rem"
+                            gap="1rem" />
+                    </f:layout>
+
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="{i18n>myInboxTitle}"
+                        subheader="{i18n>myInboxSub}"
+                        press=".onNavigate('MyInbox')">
+                        <TileContent footer="{i18n>pendingRequests}">
+                            <NumericContent
+                                value="{dashboard>/pending}"
+                                icon="sap-icon://inbox"
+                                valueColor="Critical"
+                                withMargin="false" />
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="{i18n>createLeaveTitle}"
+                        subheader="{i18n>createLeaveSub}"
+                        press=".onNavigate('CreateLeaveRequest')">
+                        <TileContent>
+                            <ImageContent src="sap-icon://create-leave-request" />
+                        </TileContent>
+                    </GenericTile>
+
+                </f:GridContainer>
+
+                <!-- Organization -->
+                <Title
+                    text="{i18n>organizationTitle}"
+                    level="H4"
+                    class="sapUiMediumMarginTop sapUiSmallMarginBottom" />
+
+                <f:GridContainer>
+                    <f:layout>
+                        <f:GridContainerSettings
+                            columns="auto-fill"
+                            columnSize="12rem"
+                            rowSize="12rem"
+                            gap="1rem" />
+                    </f:layout>
+
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="{i18n>DepartmentTitle}"
+                        subheader="{i18n>createDeptSub}"
+                        press=".onNavigate('CreateDeptRequest')">
+                        <TileContent>
+                            <ImageContent src="sap-icon://add-activity" />
+                        </TileContent>
+                    </GenericTile>
+
+                    <GenericTile
+                        frameType="OneByOne"
+                        header="About"
+                        subheader="Visit Official Website"
+                        press=".onOpenWebsite">
+                        <TileContent>
+                            <ImageContent src="sap-icon://world" />
+                        </TileContent>
+                    </GenericTile>
+
+                </f:GridContainer>
+
+            </VBox>
+
+        </content>
+    </Page>
 </mvc:View>

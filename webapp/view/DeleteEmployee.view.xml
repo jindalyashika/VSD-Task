@@ -6,17 +6,9 @@
       <MessageStrip text="{i18n>selectRowToDelete}" type="Warning" showIcon="true"
         class="sapUiSmallMarginBottom"/>
 
-      <Table id="empTable" items="{path: '/employees', sorter: {path: 'EmployeeID'}}"
-        growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar"
-        noDataText="{i18n>noEmployees}">
-        <headerToolbar>
-          <OverflowToolbar>
-            <Title text="{i18n>employees}"/>
-            <ToolbarSpacer/>
-            <SearchField width="18rem" placeholder="{i18n>searchPlaceholder}"
-              liveChange=".onSearch" search=".onSearch"/>
-          </OverflowToolbar>
-        </headerToolbar>
+      <Table id="empTable"
+        items="{path: '/Employees', parameters: {expand: 'department,designation'}, sorter: {path: 'employeeId'}}"
+        growing="true" growingThreshold="20" noDataText="{i18n>noEmployees}">
         <columns>
           <Column width="6rem"><Text text="{i18n>colId}"/></Column>
           <Column><Text text="{i18n>colName}"/></Column>
@@ -27,13 +19,13 @@
         <items>
           <ColumnListItem type="Active" press=".onRowPress">
             <cells>
-              <Text text="{EmployeeID}"/>
+              <Text text="{employeeId}"/>
               <ObjectIdentifier
-                title="{parts: [{path: 'FirstName'}, {path: 'LastName'}], formatter: '.formatter.fullName'}"
-                text="{Email}"/>
-              <Text text="{parts: [{path: 'DepartmentID'}, {path: '/departments'}], formatter: '.formatter.deptName'}"/>
-              <Text text="{JobRole}"/>
-              <ObjectStatus text="{Status}" state="{path: 'Status', formatter: '.formatter.statusState'}"/>
+                title="{parts: [{path: 'firstName'}, {path: 'lastName'}], formatter: '.formatter.fullName'}"
+                text="{email}"/>
+              <Text text="{department/name}"/>
+              <Text text="{designation/description}"/>
+              <ObjectStatus text="{status}" state="{path: 'status', formatter: '.formatter.statusState'}"/>
             </cells>
           </ColumnListItem>
         </items>

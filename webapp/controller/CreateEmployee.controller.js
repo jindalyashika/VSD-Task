@@ -6,8 +6,14 @@ sap.ui.define([
 ], function (BaseController, JSONModel, MessageBox, MessageToast) {
   "use strict";
 
-  // fields that show a red state when invalid
-  var FIELDS = ["firstName", "lastName", "email", "phone", "department_ID", "designation", "joiningDate"];
+  // fields that can show a red state
+  var FIELDS = ["firstName", "lastName", "email", "phone", "dob", "currentAddress",
+                "permanentAddress", "department_ID", "designation_ID", "joiningDate"];
+
+  // local date from the picker -> UTC midnight for the service (null if empty)
+  function toUtc(d) {
+    return d ? new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())) : null;
+  }
 
   return BaseController.extend("project1.controller.CreateEmployee", {
 
@@ -28,8 +34,9 @@ sap.ui.define([
 
       this._oForm.setData({
         emp: {
-          employeeId: "", firstName: "", lastName: "", email: "", phone: "",
-          designation: "", location: "", joiningDate: null,
+          employeeId: "", firstName: "", lastName: "", email: "", phone: "", dob: null,
+          currentAddress: "", permanentAddress: "",
+          designation_ID: "", location: "", joiningDate: null,
           status: "Active", department_ID: ""
         },
         state: oState,
@@ -89,10 +96,16 @@ sap.ui.define([
       else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(oEmp.email.trim())) { bad("email", "errEmail"); }
 
       if (!oEmp.phone.trim()) { bad("phone", "errRequired"); }
-      else if (!/^[6-9]\d{9}$/.test(oEmp.phone.trim())) { bad("phone", "errPhone"); }
+      else if (!/^[0-9+\- ]{10,15}$/.test(oEmp.phone.trim())) { bad("phone", "errPhone"); }
+
+      if (!oEmp.dob) { bad("dob", "errRequired"); }
+      else if (oEmp.dob > new Date()) { bad("dob", "errFutureDate"); }
+
+      if (!oEmp.currentAddress.trim()) { bad("currentAddress", "errRequired"); }
+      if (!oEmp.permanentAddress.trim()) { bad("permanentAddress", "errRequired"); }
 
       if (!oEmp.department_ID) { bad("department_ID", "errRequired"); }
-      if (!oEmp.designation.trim()) { bad("designation", "errRequired"); }
+      if (!oEmp.designation_ID) { bad("designation_ID", "errRequired"); }
       if (!oEmp.joiningDate) { bad("joiningDate", "errRequired"); }
 
       this._oForm.setProperty("/state", oState);
@@ -114,7 +127,6 @@ sap.ui.define([
 
     _create: function () {
       var oEmp = this._oForm.getProperty("/emp");
-      var d = oEmp.joiningDate;
 
       // only fields the service knows (see $metadata). No ID: the server creates it
       var oPayload = {
@@ -123,10 +135,12 @@ sap.ui.define([
         lastName: oEmp.lastName.trim(),
         email: oEmp.email.trim().toLowerCase(),
         phone: oEmp.phone.trim(),
-        designation: oEmp.designation.trim(),
+        dob: toUtc(oEmp.dob),
+        currentAddress: oEmp.currentAddress.trim(),
+        permanentAddress: oEmp.permanentAddress.trim(),
+        designation_ID: oEmp.designation_ID,      // the link, not text
         location: oEmp.location.trim(),
-        // the picked date is local midnight; send it as UTC midnight so the day does not shift
-        joiningDate: new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())),
+        joiningDate: toUtc(oEmp.joiningDate),
         status: oEmp.status,
         department_ID: oEmp.department_ID
       };
@@ -138,9 +152,12 @@ sap.ui.define([
           MessageToast.show(this.getText("createSuccess", [oPayload.employeeId]));
           this.getRouter().navTo("DisplayEmployees");
         }.bind(this),
-        error: function () {
+        error: function (oError) {
           this.getView().setBusy(false);
-          MessageBox.error(this.getText("createError"));
+          // show the service's own message when there is one
+          var sMsg = "";
+          try { sMsg = JSON.parse(oError.responseText).error.message.value; } catch (e) { /* not JSON */ }
+          MessageBox.error(sMsg || this.getText("createError"));
         }.bind(this)
       });
     }

@@ -63,7 +63,8 @@
         "sap.m": {},
         "sap.ui.core": {},
         "sap.ui.layout": {},
-        "sap.ui.export": {}
+        "sap.ui.export": {},
+        "sap.f": {}
       }
     },
     "contentDensities": {
@@ -106,7 +107,7 @@
         "path": "project1.view",
         "controlId": "app",
         "controlAggregation": "pages",
-        "transition": "slide",
+        "transition": "fade",
         "async": true,
         "bypassed": {
           "target": "Home"
@@ -139,15 +140,31 @@
           "target": "DisplayEmployees"
         },
         {
-          "name": "MyInbox",
-          "pattern": "inbox",
-          "target": "MyInbox"
-        },
-        {
           "name": "CreateLeaveRequest",
           "pattern": "leave/create",
           "target": "CreateLeaveRequest"
+        },
+        {
+          "name": "CreateDeptRequest",
+          "pattern": "Departments/create",
+          "target":"createDept"
+        },
+        { 
+          "name": "MyInbox",
+          "pattern": "inbox", 
+          "target": "MyInbox" 
+        },
+        { 
+          "name": "InboxLeaves", 
+          "pattern": "inbox/{employeeId}",
+           "target": "MyInbox" 
+        },
+        { 
+          "name": "InboxLeaveDetail",
+          "pattern": "inbox/{employeeId}/{leaveId}",
+          "target": "MyInbox" 
         }
+
       ],
       "targets": {
         "Home": {
@@ -183,6 +200,11 @@
         "CreateLeaveRequest": {
           "id": "CreateLeaveRequest",
           "name": "CreateLeaveRequest",
+          "viewLevel": 2
+        },
+        "createDept":{
+          "id": "createDept",
+          "name": "createDept",
           "viewLevel": 2
         }
       }

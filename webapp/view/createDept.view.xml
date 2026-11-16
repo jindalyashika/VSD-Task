@@ -1,0 +1,34 @@
+<mvc:View controllerName="project1.controller.createDept"
+  xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form" displayBlock="true">
+  <Page title="{i18n>createDeptTitle}" showNavButton="true" navButtonPress=".onNavBack"
+    class="sapUiResponsiveContentPadding">
+    <content>
+      <f:SimpleForm editable="true" layout="ResponsiveGridLayout"
+        labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+        columnsXL="1" columnsL="1" columnsM="1">
+        <f:content>
+
+          <core:Title text="{i18n>secDept}"/>
+
+          <Label text="{i18n>lblDeptName}" required="true"/>
+          <Input value="{form>/dept/name}" placeholder="{i18n>phDeptName}" maxLength="100"
+            valueState="{form>/state/name}" valueStateText="{form>/msg/name}"
+            change=".onFieldEdit"/>
+
+          <Label text="{i18n>lblDescription}"/>
+          <TextArea value="{form>/dept/description}" placeholder="{i18n>phDescription}"
+            rows="3" maxLength="255" showExceededText="true"/>
+
+        </f:content>
+      </f:SimpleForm>
+    </content>
+    <footer>
+      <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Button text="{i18n>save}" type="Emphasized" press=".onSave"/>
+        <Button text="{i18n>reset}" press=".onReset"/>
+      </OverflowToolbar>
+    </footer>
+  </Page>
+</mvc:View>

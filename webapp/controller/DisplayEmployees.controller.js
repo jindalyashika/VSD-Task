@@ -12,7 +12,8 @@ sap.ui.define([
       var aFilters = [];
 
       if (sQuery) {
-        var aFields = ["employeeId", "firstName", "lastName", "email", "designation", "location"];
+        // plain text fields only: the designation is a link now, so it is not searched
+        var aFields = ["employeeId", "firstName", "lastName", "email", "location"];
         aFilters.push(new Filter({
           filters: aFields.map(function (sField) {
             return new Filter(sField, FilterOperator.Contains, sQuery);
@@ -20,7 +21,7 @@ sap.ui.define([
           and: false   // OR: a match in any field keeps the row
         }));
       }
-      this.byId("employeeTable").getBinding("items").filter(aFilters);
+      this.byId("empTable8").getBinding("items").filter(aFilters);
     }
   });
 });

@@ -9,48 +9,52 @@ sap.ui.define([
   return BaseController.extend("project1.controller.DeleteEmployee", {
 
     onInit: function () {
-      // holds a copy of the selected employee for the dialog
-      this._oFormModel = new JSONModel({ emp: {} });
-      this.setModel(this._oFormModel, "form");
+      // "path" is the row's address, "emp" holds the text shown in the dialog
+      this._oForm = new JSONModel({ path: "", emp: {} });
+      this.setModel(this._oForm, "form");
     },
 
+    // load the dialog once, then reuse it
     _getDialog: function () {
       if (!this._pDialog) {
-        this._pDialog = this.loadFragment({
-          name: "project1.view.fragments.DeleteEmployeeDialog"
-        });
+        this._pDialog = this.loadFragment({ name: "project1.view.fragments.DeleteEmployeeDialog" });
       }
       return this._pDialog;
     },
 
-    /* Row clicked: copy the employee and open the confirmation dialog */
     onRowPress: function (oEvent) {
-      var oEmp = oEvent.getSource().getBindingContext().getObject();
-      this._oFormModel.setProperty("/emp", Object.assign({}, oEmp));
+      var oCtx = oEvent.getSource().getBindingContext();
+      var o = oCtx.getObject();
+
+      this._oForm.setData({
+        path: oCtx.getPath(),                       // e.g. /Employees(guid'1111...')
+        emp: {
+          employeeId: o.employeeId || "",
+          name: this.formatter.fullName(o.firstName, o.lastName),
+          email: o.email || "",
+          department: o.department ? o.department.name : "",
+          designation: o.designation ? o.designation.description : ""
+        }
+      });
       this._getDialog().then(function (oDialog) { oDialog.open(); });
     },
 
-    /* Delete confirmed */
     onConfirmDelete: function () {
-      var oModel = this.getDataModel();
-      var sId = this._oFormModel.getProperty("/emp/EmployeeID");
-      var aEmp = this.getEmployees();
+      var sPath = this._oForm.getProperty("/path");
+      var oEmp = this._oForm.getProperty("/emp");
 
-      if (!aEmp.some(function (e) { return e.EmployeeID === sId; })) {
-        MessageBox.error(this.getText("notFound"));
-        return;
-      }
-
-      oModel.setProperty("/employees", aEmp.filter(function (e) {
-        return e.EmployeeID !== sId;
-      }));
-
-      // keep data consistent: remove this employee's leave requests too
-      oModel.setProperty("/leaveRequests", (oModel.getProperty("/leaveRequests") || [])
-        .filter(function (l) { return l.EmployeeID !== sId; }));
-
-      this.onCancelDelete();
-      MessageToast.show(this.getText("deleteSuccess", [sId]));
+      this.getOwnerComponent().getModel().remove(sPath, {
+        success: function () {
+          this.onCancelDelete();                      // close the dialog
+          MessageToast.show(this.getText("deleteSuccess", [oEmp.employeeId || oEmp.name]));
+        }.bind(this),
+        error: function (oError) {
+          // the service may refuse (for example if the employee is still linked to other data)
+          var sMsg = "";
+          try { sMsg = JSON.parse(oError.responseText).error.message.value; } catch (e) { /* not JSON */ }
+          MessageBox.error(sMsg || this.getText("deleteError"));
+        }.bind(this)
+      });
     },
 
     onCancelDelete: function () {
