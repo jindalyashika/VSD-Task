@@ -1,0 +1,81 @@
+<mvc:View
+    controllerName="project1.controller.BulkUpload"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns="sap.m"
+>
+    <Page
+        id="upload"
+        title="Upload Plan"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+ 
+                <!-- Card 1: download the template -->
+                <Panel class="sapUiSmallMarginBottom">
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="1. Download the template from the application" />
+                            <ToolbarSpacer />
+                            <Text text="Not distributed by email" />
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <HBox alignItems="Center">
+                        <Button
+                            text="Download template"
+                            press=".onDownloadTemplate"
+                        />
+                        <!-- <Text
+                            text="Includes the 70 approved combinations"
+                            class="sapUiSmallMarginBegin"
+                        /> -->
+                    </HBox>
+                </Panel>
+ 
+                <!-- Card 2: upload the file -->
+                <Panel>
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <Title text="2. Upload the consolidated file" />
+                        </OverflowToolbar>
+                    </headerToolbar>
+ 
+                    <VBox
+                        id="dropZone"
+                        height="12rem"
+                        alignItems="Center"
+                        justifyContent="Center"
+                    >
+                        <core:Icon
+                            src="sap-icon://upload"
+                            size="2rem"
+                            color="Neutral"
+                        />
+                        <Text
+                            text="Drop the plan file here, or browse to select it"
+                            class="sapUiSmallMarginTopBottom"
+                        />
+                        <u:FileUploader
+                            buttonOnly="true"
+                            buttonText="Select file and validate"
+                            style="Emphasized"
+                            fileType="csv,xlsx"
+                            sameFilenameAllowed="true"
+                            change=".onFileChange"
+                            typeMissmatch=".onTypeMismatch"
+                        />
+                    </VBox>
+ 
+                    <!-- <Text
+                        text="In the demo the file contains five invalid rows, to show the two-tier validation."
+                        class="sapUiTinyMarginTop"
+                    /> -->
+                </Panel>
+ 
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>  

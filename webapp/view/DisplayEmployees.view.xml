@@ -1,4 +1,3 @@
-
 <mvc:View
     controllerName="project1.controller.DisplayEmployees"
     xmlns:mvc="sap.ui.core.mvc"
@@ -45,38 +44,50 @@
 
                 <columns>
 
+                    <!-- Employee Image -->
+                    <Column width="5rem" hAlign="Center">
+                        <Text text="Photo"/>
+                    </Column>
+
+                    <!-- Employee ID -->
                     <Column width="6rem">
                         <Text text="{i18n>colId}"/>
                     </Column>
 
+                    <!-- Employee Name -->
                     <Column>
                         <Text text="{i18n>colName}"/>
                     </Column>
 
+                    <!-- Department -->
                     <Column
                         minScreenWidth="Tablet"
                         demandPopin="true">
                         <Text text="{i18n>colDepartment}"/>
                     </Column>
 
+                    <!-- Designation -->
                     <Column
                         minScreenWidth="Tablet"
                         demandPopin="true">
                         <Text text="{i18n>colJobRole}"/>
                     </Column>
 
+                    <!-- Location -->
                     <Column
                         minScreenWidth="Desktop"
                         demandPopin="true">
                         <Text text="{i18n>colLocation}"/>
                     </Column>
 
+                    <!-- Joining Date -->
                     <Column
                         minScreenWidth="Desktop"
                         demandPopin="true">
                         <Text text="{i18n>colJoined}"/>
                     </Column>
 
+                    <!-- Status -->
                     <Column>
                         <Text text="{i18n>colStatus}"/>
                     </Column>
@@ -84,11 +95,24 @@
                 </columns>
 
                 <items>
-                    <ColumnListItem>
-                        <cells>
+                    <ColumnListItem vAlign="Middle">
 
+                        <cells>
+           <!-- for employee profile -->
+                          <Avatar
+    src="{
+        path: '__metadata/media_src',
+        formatter: '.formatImageUrl'
+    }"
+    displayShape="Circle"
+    displaySize="S"
+    fallbackIcon="sap-icon://employee"
+/>
+
+                            <!-- Employee ID -->
                             <Text text="{employeeId}"/>
 
+                            <!-- Employee Name -->
                             <ObjectIdentifier
                                 title="{
                                     parts: [
@@ -99,12 +123,16 @@
                                 }"
                                 text="{email}"/>
 
+                            <!-- Department -->
                             <Text text="{department/name}"/>
 
+                            <!-- Designation -->
                             <Text text="{designation/description}"/>
 
+                            <!-- Location -->
                             <Text text="{location}"/>
 
+                            <!-- Joining Date -->
                             <Text
                                 text="{
                                     path: 'joiningDate',
@@ -115,6 +143,7 @@
                                     }
                                 }"/>
 
+                            <!-- Status -->
                             <ObjectStatus
                                 text="{status}"
                                 state="{
@@ -123,6 +152,7 @@
                                 }"/>
 
                         </cells>
+
                     </ColumnListItem>
                 </items>
 

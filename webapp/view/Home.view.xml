@@ -146,6 +146,16 @@
                         </TileContent>
                     </GenericTile>
 
+                     <GenericTile
+                        frameType="OneByOne"
+                        header="Bulk Upload"
+                        subheader="Upload"
+                        press=".onNavigate('BulkUpload')">
+                        <TileContent>
+                            <ImageContent src="sap-icon://upload" />
+                        </TileContent>
+                    </GenericTile>
+
                 </f:GridContainer>
 
             </VBox>

@@ -163,6 +163,11 @@
           "name": "InboxLeaveDetail",
           "pattern": "inbox/{employeeId}/{leaveId}",
           "target": "MyInbox" 
+        },
+        {
+          "name": "BulkUpload",
+          "pattern": "BulkUpload",
+          "target": "BulkUpload"
         }
 
       ],
@@ -205,6 +210,11 @@
         "createDept":{
           "id": "createDept",
           "name": "createDept",
+          "viewLevel": 2
+        },
+        "BulkUpload":{
+          "id": "BulkUpload",
+          "name": "BulkUpload",
           "viewLevel": 2
         }
       }
